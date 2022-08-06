@@ -40,7 +40,7 @@ const MessageList = () => {
 
         messagesQueue.shift();
       }
-    }, 1000);
+    }, 100);
   }, []);
 
   useEffect(() => {

@@ -10,9 +10,7 @@ const SendMessageForm = () => {
 
   const [message, setMessage] = useState("");
 
-  const handleSendMessage = async (event: FormEvent) => {
-    event.preventDefault();
-
+  const receivingMessages = async () => {
     // Verificar se o texto estiver vazio, mesmo se estiver com espaço
     if (!message.trim()) {
       return;
@@ -21,6 +19,18 @@ const SendMessageForm = () => {
     await api.post("messages", { message });
 
     setMessage("");
+  };
+
+  const handleSendMessage = async (event: FormEvent) => {
+    event.preventDefault();
+    receivingMessages();
+  };
+
+  const handleKeyPress = async (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      receivingMessages();
+    }
   };
 
   return (
@@ -46,6 +56,7 @@ const SendMessageForm = () => {
           placeholder="Descreva o seu pessamento?"
           onChange={(event) => setMessage(event.target.value)}
           value={message}
+          onKeyPress={(event) => handleKeyPress(event)}
         />
         <button type="submit">Enviar Mensagem</button>
       </form>
